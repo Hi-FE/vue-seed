@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 Vue.use(VueRouter){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 
 const router = new VueRouter({
-  history            : true,
-  saveScrollPosition : true,
-  root               : '/'
+  history: true,
+  saveScrollPosition: true,
+  root: '/'
 }){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 
 
