@@ -46,6 +46,12 @@ module.exports = {
       message: 'Project description',
       default: 'A Vue.js project',
     },
+    author: {
+      when: 'isNotTest',
+      type: 'string',
+      message: 'Author',
+      default: 'hife',
+    },
     env: {
       when: 'isNotTest',
       type: 'list',
@@ -68,6 +74,14 @@ module.exports = {
         },
       ],
     },
+    commit_check: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'Check git commit message specification ?'
+    },
+  },
+  filters: {
+    'scripts/**/*': 'commit_check'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

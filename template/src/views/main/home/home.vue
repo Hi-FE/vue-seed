@@ -9,10 +9,10 @@
 </style>
 
 <script>
-  export default {
-    name: 'home',
-    data: function () {
-      return {}
-    }
+export default {
+  name: 'home',
+  data: function () {
+    return {}
   }
+}
 </script>
