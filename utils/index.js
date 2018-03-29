@@ -77,7 +77,7 @@ To get started:
       data
     )}${lintMsg(data)}npm run dev`
   )}
-  
+
 Documentation can be found at https://vuejs-templates.github.io/webpack
 `
   console.log(message)
@@ -92,17 +92,17 @@ function lintMsg(data) {
   return !data.autoInstall &&
     data.lint &&
     lintStyles.indexOf(data.lintConfig) !== -1
-    ? 'npm run lint -- --fix (or for yarn: yarn run lint --fix)\n  '
+    ? 'npm run lint -- --fix \n  '
     : ''
 }
 
 /**
- * If the user will have to run `npm install` or `yarn` themselves, it returns a string
+ * If the user will have to run `npm install` themselves, it returns a string
  * containing the instruction for this step.
  * @param {Object} data Data from the questionnaire
  */
 function installMsg(data) {
-  return !data.autoInstall ? 'npm install (or if using yarn: yarn)\n  ' : ''
+  return !data.autoInstall ? 'npm install \n  ' : ''
 }
 
 /**
