@@ -10,7 +10,7 @@ Let's take a look at the files in the `test/e2e` directory:
 
 - `nightwatch.conf.js`
 
-  Nightwatch configuration file. See [Nightwatch's docs on configuration](http://nightwatchjs.org/guide#settings-file) for more details.
+  Nightwatch configuration file. See [Nightwatch's docs on configuration](http://nightwatchjs.org/gettingstarted#settings-file) for more details.
 
 - `custom-assertions/`
 
@@ -18,7 +18,7 @@ Let's take a look at the files in the `test/e2e` directory:
 
 - `specs/`
 
-  You actual tests! See [Nightwatch's docs on writing tests](http://nightwatchjs.org/guide#writing-tests) and [API reference](http://nightwatchjs.org/api) for more details.
+  Your actual tests! See [Nightwatch's docs on writing tests](http://nightwatchjs.org/guide#writing-tests) and [API reference](http://nightwatchjs.org/api) for more details.
 
 ### Running Tests in More Browsers
 

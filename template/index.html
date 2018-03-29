@@ -2,10 +2,52 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{ name }}</title>
+    {{#if_eq env "pc"}}
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    {{/if_eq}}
+
+    {{#if_eq env "h5"}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no, viewport-fit=contain" name="viewport">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    {{/if_eq}}
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-min.css">
+
+    <title><%= htmlWebpackPlugin.options.config.title %></title>
+
+    <% if (htmlWebpackPlugin.options.config.growingio.account_id) { %>
+      <!-- growing io -->
+      <script type="text/javascript">
+        (function(){
+          var _vds = _vds || [];
+          var account_id = '<%= htmlWebpackPlugin.options.config.growingio.account_id %>'
+
+          _vds.push(['setAccountId', account_id]);
+
+          if (account_id) {
+            (function() {
+              var vds = document.createElement('script');
+              vds.type='text/javascript';
+              vds.async = true;
+              vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(vds, s);
+            })();
+          }
+
+          window._vds = _vds;
+        })();
+      </script>
+    <% } %>
   </head>
   <body>
-    <app></app>
+    <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

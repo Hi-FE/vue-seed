@@ -1,32 +1,49 @@
+// https://eslint.org/docs/user-guide/configuring
+
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    sourceType: 'module'
+    parser: 'babel-eslint'
   },
-  {{#if_eq lintConfig "standard"}}
-  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: 'standard',
-  {{/if_eq}}
-  {{#if_eq lintConfig "airbnb"}}
-  extends: 'airbnb-base',
-  {{/if_eq}}
+  env: {
+    browser: true,
+  },
+  // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+  // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+  extends: ['plugin:vue/essential', 'airbnb-base'],
   // required to lint *.vue files
   plugins: [
-    'html'
+    'vue'
   ],
+  // check if imports actually resolve
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: 'build/webpack.base.conf.js'
+      }
+    }
+  },
   // add your custom rules here
-  'rules': {
-    {{#if_eq lintConfig "standard"}}
-    // allow paren-less arrow functions
-    'arrow-parens': 0,
-    // allow async-await
-    'generator-star-spacing': 0,
-    {{/if_eq}}
-    {{#if_eq lintConfig "airbnb"}}
-    'import/no-unresolved': 0,
-    {{/if_eq}}
+  rules: {
+    // disallow parameter object manipulation except for specific exclusions
+    'no-param-reassign': ['error', {
+      props: true,
+      ignorePropertyModificationsFor: [
+        'state', // for vuex state
+        'acc', // for reduce accumulators
+        'e' // for e.returnvalue
+      ]
+    }],
+    // allow optionalDependencies
+    'import/no-extraneous-dependencies': ['error', {
+      optionalDependencies: ['test/unit/index.js']
+    }],
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'semi': 'off',
+    'comma-dangle': 'off',
+    'global-require': 'off',
+    'import/no-dynamic-require': 'off',
+    'import/extensions': 'off'
   }
 }

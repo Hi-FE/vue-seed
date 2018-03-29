@@ -1,19 +1,18 @@
-import Vue from 'vue'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
-import VueRouter from 'vue-router'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import Vue from 'vue';
+import router from 'src/_router';
+import store from 'src/_store';
+import 'src/_plugins'
+import App from './App';
 
-Vue.use(VueRouter){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+Vue.config.productionTip = false;
 
-const router = new VueRouter({
-  history: true,
-  saveScrollPosition: true,
-  root: '/'
-}){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
-
-
-router.map({
-  '/' : {component : require('./views/home.vue')}
-}){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
-
-
-const App = Vue.extend(require('./App.vue')){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
-router.start(App, 'body'){{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  store,
+  components: { App },
+  template: '<App/>',
+});
