@@ -44,6 +44,8 @@ module.exports = {
     'comma-dangle': 'off',
     'global-require': 'off',
     'import/no-dynamic-require': 'off',
-    'import/extensions': 'off'
+    'import/extensions': 'off',
+    'object-shorthand': 'off',
+    'func-names': 'off'
   }
 }
