@@ -78,7 +78,7 @@ To get started:
     )}${lintMsg(data)}npm run dev`
   )}
 
-Documentation can be found at https://vuejs-templates.github.io/webpack
+Documentation can be found at https://github.com/Hi-FE/vue-seed/tree/hife_tmpl
 `
   console.log(message)
 }
