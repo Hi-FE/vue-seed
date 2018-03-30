@@ -38,7 +38,6 @@ module.exports = {
       return templateVersion
     }
   },
-
   prompts: {
     name: {
       when: 'isNotTest',
@@ -99,12 +98,19 @@ module.exports = {
           value: 'growingio',
           short: 'Growingio',
           checked: true
-        }
+        },
+        {
+          name: 'mandy',
+          value: 'mandy',
+          short: 'Mandy',
+          checked: true
+        },
       ]
     }
   },
   filters: {
-    'scripts/**/*': 'commit_check'
+    'scripts/**/*': 'commit_check',
+    'mandy/**/*': 'options.mandy',
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

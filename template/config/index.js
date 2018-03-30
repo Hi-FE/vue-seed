@@ -4,13 +4,36 @@
 
 const path = require('path')
 
+const commonProxy = {
+  // target: 'https://www.wantu.cn',
+  target: '',
+  changeOrigin: true,
+  pathRewrite: {}
+};
+
+{{#if_in options "mandy"}}
+const devDeploy = {
+  origin: 'dist',
+  // target: '/home/app/git/dev/hitour.server/hitour/themes/pc/dist'
+  target: ''
+}
+
+const prodDeploy = {
+  password: '',
+  origin: 'dist',
+  // target: '/home/app/wwwroot/hitour/themes/pc/dist'
+  target: ''
+}
+
+{{/if_in}}
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/api/*': commonProxy,
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -40,7 +63,10 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true{{#if_in options "mandy"}},
+
+    // deploy
+    devDeploy: devDeploy{{/if_in}}
   },
 
   build: {
@@ -71,6 +97,9 @@ module.exports = {
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report
+    bundleAnalyzerReport: process.env.npm_config_report{{#if_in options "mandy"}},
+
+    // deploy
+    prodDeploy: prodDeploy{{/if_in}}
   }
 }

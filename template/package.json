@@ -52,7 +52,8 @@
     "husky": "^0.14.3"{{/commit_check}},
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0"{{#commit_check}},
-    "lint-staged": "^7.0.0"{{/commit_check}},
+    "lint-staged": "^7.0.0"{{/commit_check}},{{#if_in options "mandy"}}
+    "mandy": "^0.1.5",{{/if_in}}
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
