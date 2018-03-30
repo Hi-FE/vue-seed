@@ -15,7 +15,8 @@
     "checkCommit": "node scripts/check-commit-message.js"{{/commit_check}}
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.0",{{#if_in options "sentry"}}
+    "raven-js": "^3.24.0",{{/if_in}}
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

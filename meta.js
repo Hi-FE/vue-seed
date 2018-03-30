@@ -27,9 +27,16 @@ module.exports = {
 
       return options.inverse(this)
     },
+    if_in(v1, v2, options) {
+      if ((v1 || {})[v2]) {
+        return options.fn(this)
+      }
+
+      return options.inverse(this)
+    },
     template_version() {
       return templateVersion
-    },
+    }
   },
 
   prompts: {
@@ -49,6 +56,7 @@ module.exports = {
     author: {
       when: 'isNotTest',
       type: 'string',
+      required: false,
       message: 'Author',
       default: 'hife',
     },
@@ -66,19 +74,34 @@ module.exports = {
           name: 'h5',
           value: 'h5',
           short: 'h5',
-        },
-        {
-          name: 'none (configure it yourself)',
-          value: 'none',
-          short: 'none',
-        },
+        }
       ],
     },
     commit_check: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Check git commit message specification ?'
+      message: 'Check git commit message with hife specifications ?',
+      default: true
     },
+    options: {
+      when: 'isNotTest',
+      type: 'checkbox',
+      message: 'Some optional config, All selected by default',
+      choices: [
+        {
+          name: 'sentry',
+          value: 'sentry',
+          short: 'Sentry',
+          checked: true
+        },
+        {
+          name: 'growingio',
+          value: 'growingio',
+          short: 'Growingio',
+          checked: true
+        }
+      ]
+    }
   },
   filters: {
     'scripts/**/*': 'commit_check'
