@@ -46,6 +46,8 @@ module.exports = {
     'import/no-dynamic-require': 'off',
     'import/extensions': 'off',
     'object-shorthand': 'off',
-    'func-names': 'off'
+    'func-names': 'off',
+    'arrow-parens': 'off',
+    'arrow-body-style': 'off'
   }
 }
