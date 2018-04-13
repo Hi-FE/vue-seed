@@ -13,17 +13,22 @@ const commonProxy = {
 
 {{#if_in options "mandy"}}
 const devDeploy = {
-  origin: 'dist',
-  // target: '/home/app/git/dev/hitour.server/hitour/themes/pc/dist'
   target: ''
 }
 
 const prodDeploy = {
   password: '',
-  origin: 'dist',
-  // target: '/home/app/wwwroot/hitour/themes/pc/dist'
   target: ''
-}
+}{{#if_in options "qiniu"}}
+
+const qiniuDeploy = {
+  accessKey: '',
+  secretKey: '',
+  bucket: '',
+  bucketDomain: '',
+  matchFiles: [],
+  uploadPath: ''
+}{{/if_in}}
 
 {{/if_in}}
 module.exports = {
@@ -66,7 +71,7 @@ module.exports = {
     cssSourceMap: true{{#if_in options "mandy"}},
 
     // deploy
-    devDeploy: devDeploy{{/if_in}}
+    deploy: devDeploy{{/if_in}}
   },
 
   build: {
@@ -100,6 +105,9 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report{{#if_in options "mandy"}},
 
     // deploy
-    prodDeploy: prodDeploy{{/if_in}}
+    deploy: prodDeploy{{/if_in}}{{#if_in options "qiniu"}},
+
+    // cdn deploy
+    qiniuDeploy: qiniuDeploy{{/if_in}}
   }
 }

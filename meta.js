@@ -105,6 +105,13 @@ module.exports = {
           short: 'Mandy',
           checked: true
         },
+        {
+          name: 'qiniu',
+          value: 'qiniu',
+          short: 'Qiniu CDN',
+          checked: true
+        },
+
       ]
     }
   },

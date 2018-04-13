@@ -147,6 +147,12 @@ if (config.build.productionGzip) {
 if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-}
+}{{#if_in options "qiniu"}}
+
+// 静态资源 cdn 部署
+if (env.CDN_ENV === '"qiniu"') {
+  var QiniuPlugin = require('better-qiniu-webpack-plugin')
+  webpackConfig.plugins.push(new QiniuPlugin(config.build.qiniuDeploy))
+}{{/if_in}}
 
 module.exports = webpackConfig
