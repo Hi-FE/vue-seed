@@ -23,7 +23,7 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: './src/main.ts'
   },
   output: {
     path: config.build.assetsRoot,
@@ -33,12 +33,10 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json', '.ts', '.styl'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'views': resolve('src/views'),
-      'src': resolve('src'),
-      '@': resolve('src'),
+      '@': resolve('src')
     }
   },
   module: {
@@ -52,7 +50,27 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include: [resolve('src'), resolve('test')]
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        include: [resolve('src')],
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: {
+          typeCheck: true
+        }
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+          transpileOnly: true,
+          happyPackMode: process.env.NODE_ENV !== 'production'
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -85,7 +103,7 @@ module.exports = {
       options: {
         stylus: {
           import: [
-            resolve('src/_styles/variables.styl')
+            resolve('src/styles/index.styl')
           ]
         }
       }

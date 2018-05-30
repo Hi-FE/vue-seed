@@ -1,5 +1,6 @@
 'use strict'
+const argv = require('minimist')(process.argv.slice(2))
 module.exports = {
-  NODE_ENV: '"production"'{{#if_in options "qiniu"}},
-  CDN_ENV: `"${process.env.CDN_ENV || ''}"`{{/if_in}}
+  NODE_ENV: '"production"',
+  IS_PROD_ENV: !!argv.prod
 }

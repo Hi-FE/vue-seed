@@ -4,12 +4,18 @@
 
 const path = require('path')
 
+const target = {
+  'test': 'http://test.example.com/', // 测试
+  'prod': 'http://example.com/', // 正式
+}
+
 const commonProxy = {
-  // target: 'https://www.wantu.cn',
-  target: '',
+  target: target[process.env.ENV || 'test'],
   changeOrigin: true,
   pathRewrite: {}
-};
+}
+
+const port = process.env.PORT || 8085
 
 {{#if_in options "mandy"}}
 const devDeploy = {
@@ -37,12 +43,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/api/*': commonProxy,
+      '/api/*': commonProxy,
     },
 
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST
-    port: 8085, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: port, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
@@ -51,7 +57,7 @@ module.exports = {
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
-    useEslint: true,
+    useEslint: false,
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: true,
@@ -81,7 +87,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/dist/',
 
     /**
      * Source Maps
