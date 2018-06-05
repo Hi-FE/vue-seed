@@ -21,7 +21,7 @@ const sentry = prodDeal({
 
 {{/if_in}}
 module.exports = {
-  title,
-  growingio,
+  title,{{#if_in options "growingio"}}
+  growingio,{{/if_in}}
   sentry
 }

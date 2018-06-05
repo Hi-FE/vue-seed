@@ -16,10 +16,8 @@
     {{/if_eq}}
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-min.css">
-
     <title><%= htmlWebpackPlugin.options.config.title %></title>
-
-    {{#if_or options "growingio"}}
+    {{#if_in options "growingio"}}
     <% if (htmlWebpackPlugin.options.config.growingio.account_id) { %>
       <!-- growing io -->
       <script type="text/javascript">
@@ -44,7 +42,7 @@
         })();
       </script>
     <% } %>
-    {{/if_or}}
+    {{/if_in}}
   </head>
   <body>
     <div id="app-box"></div>
