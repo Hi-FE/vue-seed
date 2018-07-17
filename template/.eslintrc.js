@@ -50,6 +50,8 @@ module.exports = {
     'arrow-parens': 'off',
     'arrow-body-style': 'off',
     'space-before-function-paren': 'off',
-    'consistent-return': 'off'
+    'consistent-return': 'off',
+    'array-callback-return': 'off',
+    'prefer-arrow-callback': 'off'
   }
 }

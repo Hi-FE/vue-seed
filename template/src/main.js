@@ -3,28 +3,36 @@
 import Vue from 'vue'
 import router from 'src/_router'
 import store from 'src/_store'
-import config from 'src/_config'{{#if_in options "sentry"}}
+import Config from 'src/_config'{{#if_in options "sentry"}}
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'{{/if_in}}
-import 'src/_plugins'
+import Plugins from 'src/_plugins'{{#if_in options "i18n"}}
+import i18n from 'src/_i18n'{{/if_in}}
 import App from './App'
 
 Vue.config.productionTip = false;
+
+Vue.use(Plugins)
+{{#if_in options "i18n"}}
+
+i18n.bindLangParams(router)
+{{/if_in}}
 
 /* eslint-disable no-new */
 const initVue = () => {
   new Vue({
     el: '#app',
     router,
-    store,
+    store,{{#if_in options "i18n"}}
+    i18n,{{/if_in}}
     components: { App },
     template: '<App/>',
   })
 }
 {{#if_in options "sentry"}}
-if (config.sentry.dsn) {
+if (Config.sentry.dsn) {
   Raven
-    .config(config.sentry.dsn)
+    .config(Config.sentry.dsn)
     .addPlugin(RavenVue, Vue)
     .install()
     .context(() => {

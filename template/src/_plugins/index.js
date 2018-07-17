@@ -1,5 +1,7 @@
-import Vue from 'vue'
-import http from './http.js'
+import Http from './http.js'
 
-Vue.use(http)
-
+export default {
+  install(Vue) {
+    Vue.use(Http)
+  }
+}

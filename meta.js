@@ -55,9 +55,7 @@ module.exports = {
     author: {
       when: 'isNotTest',
       type: 'string',
-      required: false,
       message: 'Author',
-      default: 'hife',
     },
     env: {
       when: 'isNotTest',
@@ -79,7 +77,7 @@ module.exports = {
     commit_check: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Check git commit message with hife specifications ?',
+      message: 'Check git commit message with hife rules ?',
       default: true
     },
     options: {
@@ -111,13 +109,19 @@ module.exports = {
           short: 'Qiniu CDN',
           checked: true
         },
-
+        {
+          name: 'i18n',
+          value: 'i18n',
+          short: 'I18n',
+          checked: true
+        },
       ]
     }
   },
   filters: {
     'scripts/**/*': 'commit_check',
     'mandy/**/*': 'options.mandy',
+    'src/_i18n/*': 'options.i18n',
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

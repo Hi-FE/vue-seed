@@ -1,7 +1,7 @@
 export default [
   {
     name: 'HelloWorld',
-    path: '/',
+    path: '/helloworld',
     component: resolve => require(['src/_components/HelloWorld.vue'], resolve)
   }
 ]
