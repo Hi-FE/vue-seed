@@ -48,6 +48,8 @@ module.exports = {
     'object-shorthand': 'off',
     'func-names': 'off',
     'arrow-parens': 'off',
-    'arrow-body-style': 'off'
+    'arrow-body-style': 'off',
+    'space-before-function-paren': 'off',
+    'consistent-return': 'off'
   }
 }
