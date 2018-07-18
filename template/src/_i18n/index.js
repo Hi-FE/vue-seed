@@ -44,13 +44,13 @@ i18n.bindLangParams = function (router) {
 
   // 监听路由 lang 参数，动态引入语言包
   router.beforeEach((to, from, next) => {
-    const lang = to.params.lang || from.params.lang
+    const locale = to.params.locale || from.params.locale
 
-    if (from.params.lang && !to.params.lang) {
-      return next({ name: to.name, params: { ...to.params, lang }, replace: flag })
+    if (from.params.locale && !to.params.locale) {
+      return next({ name: to.name, params: { ...to.params, locale }, replace: flag })
     }
 
-    loadLanguageAsync(lang).then(() => next())
+    loadLanguageAsync(locale).then(() => next())
   })
 
   router.afterEach(() => {

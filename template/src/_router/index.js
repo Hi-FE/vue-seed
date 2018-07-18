@@ -8,7 +8,7 @@ Vue.use(Router)
 
 /* eslint no-param-reassign: "off" */
 const routes = [].concat(shelves, others){{#if_in options "i18n"}}.map(function (route) {
-  route.path = `/:lang?${route.path}`
+  route.path = `/:locale?${route.path}`
   return route
 }){{/if_in}}
 
