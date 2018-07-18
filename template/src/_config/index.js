@@ -1,10 +1,10 @@
-{{#if_in options ''}}
+{{#if_or growingio sentry }}
 // production
 const prodDeal = (config) => {
   return process.env.NODE_ENV === 'production' ? config : {}
 }
 
-{{/if_in}}
+{{/if_or}}
 // page title
 const title = 'Hife Template'
 
