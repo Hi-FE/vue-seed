@@ -80,6 +80,12 @@ module.exports = {
       message: '是否启用 git commit 规范检查 ?',
       default: true
     },
+    test: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: '使用 Karma + Mocha 测试框架 ?',
+      default: true
+    },
     options: {
       when: 'isNotTest',
       type: 'checkbox',
@@ -119,6 +125,7 @@ module.exports = {
     }
   },
   filters: {
+    'test/**/*': 'test',
     'scripts/**/*': 'commit_check',
     'mandy/**/*': 'options.mandy',
     'src/_i18n/*': 'options.i18n',
