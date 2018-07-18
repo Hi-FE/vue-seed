@@ -1,3 +1,13 @@
+# {{ name }}
+
+> {{ description }}
+
+## 项目唯一不受控的配置文件(config/index.js)
+
+> 创建 config/index.js 文件，复制以下内容，即可运行项目
+
+```javascript
+
 'use strict'
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
@@ -18,17 +28,18 @@ const commonProxy = {
 
 {{#if_in options "mandy"}}
 const devDeploy = {
-  target: ''
   // target: '/home/app/git/trial/hitour.server/hitour/themes/v3/dist/hk_m'
   // target: '/home/app/git/test/hitour.server/hitour/themes/v3/dist/hk_m'
   // target: '/home/app/git/test.wantu.cn/hitour.server/hitour/themes/v3/dist/hk_m'
   // target: '/home/app/git/hitour.server/hitour/themes/v3/dist/hk_m'
+  target: ''
 }
 
 const prodDeploy = {
   password: '',
   target: ''
-}{{#if_in options "qiniu"}}
+}{{/if_in}}
+{{#if_in options "qiniu"}}
 
 const qiniuDeploy = {
   accessKey: '',
@@ -38,8 +49,6 @@ const qiniuDeploy = {
   matchFiles: [],
   uploadPath: ''
 }{{/if_in}}
-
-{{/if_in}}
 module.exports = {
   dev: {
     // Paths
@@ -120,3 +129,30 @@ module.exports = {
     qiniuDeploy: qiniuDeploy{{/if_in}}
   }
 }
+
+```
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# 打包并且部署到指定测试服务器上
+npm run deploy:dev
+
+# 打包并且部署到指定生产服务器上
+npm run deploy:prod
+
+# 已打包，部署到指定测试服务器上
+mandy deploy dev
+
+# 已打包，部署到指定生产服务器上
+mandy deploy prod
+```
