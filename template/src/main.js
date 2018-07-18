@@ -19,6 +19,7 @@ Vue.use(Plugins)
 {{#if_in options "i18n"}}
 
 i18n.bindLangParams(router)
+i18n.bindRequestHeader(axios)
 {{/if_in}}
 
 /* eslint-disable no-new */

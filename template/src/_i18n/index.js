@@ -93,4 +93,16 @@ i18n.bindLangParams = function (router) {
   })
 }
 
+// 绑定请求头参数
+i18n.bindRequestHeader = function (axios) {
+  if (!axios) return
+
+  axios.interceptors.request.use(config => {
+    // 所有请求类型，补充渠道参数到请求 url 上
+    config.params = { ...config.params, language: i18n.locale }
+
+    return config
+  })
+}
+
 export default i18n
