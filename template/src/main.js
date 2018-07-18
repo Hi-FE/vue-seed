@@ -2,15 +2,18 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from 'src/_router'
+import axios from 'axios'
 import store from 'src/_store'
 import Config from 'src/_config'{{#if_in options "sentry"}}
 import Raven from 'raven-js'
-import RavenVue from 'raven-js/plugins/vue'{{/if_in}}
-import Plugins from 'src/_plugins'{{#if_in options "i18n"}}
+import RavenVue from 'raven-js/plugins/vue'{{/if_in}}{{#if_in options "i18n"}}
 import i18n from 'src/_i18n'{{/if_in}}
 import App from './App'
 
 Vue.config.productionTip = false;
+
+// 注册 $http
+Vue.prototype.$http = axios
 
 Vue.use(Plugins)
 {{#if_in options "i18n"}}
