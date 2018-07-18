@@ -24,7 +24,8 @@ const sentry = prodDeal({
 // sentry
 const i18n = {
   // 取值与 lang_[name] 中的 name 保持一致
-  locale: 'zh'
+  locale: 'zh',
+  loaded: ['zh']
 }
 
 {{/if_in}}
