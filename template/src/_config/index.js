@@ -30,8 +30,8 @@ const i18n = {
 
 {{/if_in}}
 module.exports = {
-  title,{{#if_in options "growingio"}}
-  growingio,{{/if_in}}{{#if_in options "sentry"}}
-  sentry,{{/if_in}}{{#if_in options "i18n"}}
+  title{{#if_in options "growingio"}},
+  growingio{{/if_in}}{{#if_in options "sentry"}},
+  sentry{{/if_in}}{{#if_in options "i18n"}},
   i18n{{/if_in}}
 };

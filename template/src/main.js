@@ -14,7 +14,6 @@ Vue.config.productionTip = false;
 
 // 注册 $http
 Vue.prototype.$http = axios
-
 {{#if_in options "i18n"}}
 
 i18n.bindLangParams(router)
@@ -29,7 +28,7 @@ const initVue = () => {
     store,{{#if_in options "i18n"}}
     i18n,{{/if_in}}
     components: { App },
-    template: '<App/>',
+    template: '<App/>'
   })
 }
 {{#if_in options "sentry"}}
