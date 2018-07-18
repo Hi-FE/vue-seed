@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import router from 'src/_router'
 import axios from 'axios'
-import store from 'src/_store'
-import Config from 'src/_config'{{#if_in options "sentry"}}
+import store from 'src/_store'{{#if_in options "sentry"}}
+import Config from 'src/_config'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'{{/if_in}}{{#if_in options "i18n"}}
 import i18n from 'src/_i18n'{{/if_in}}

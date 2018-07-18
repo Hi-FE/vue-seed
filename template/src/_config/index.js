@@ -1,8 +1,10 @@
+{{#if_in options ''}}
 // production
 const prodDeal = (config) => {
   return process.env.NODE_ENV === 'production' ? config : {}
 }
 
+{{/if_in}}
 // page title
 const title = 'Hife Template'
 
