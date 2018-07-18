@@ -15,7 +15,6 @@ Vue.config.productionTip = false;
 // 注册 $http
 Vue.prototype.$http = axios
 
-Vue.use(Plugins)
 {{#if_in options "i18n"}}
 
 i18n.bindLangParams(router)
