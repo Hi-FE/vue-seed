@@ -43,32 +43,32 @@ module.exports = {
       when: 'isNotTest',
       type: 'string',
       required: true,
-      message: 'Project name',
+      message: '项目名称',
     },
     description: {
       when: 'isNotTest',
       type: 'string',
       required: false,
-      message: 'Project description',
-      default: 'A Vue.js project',
+      message: '项目描述',
+      default: 'A wantu project',
     },
     author: {
       when: 'isNotTest',
       type: 'string',
-      message: 'Author',
+      message: 'author',
     },
     env: {
       when: 'isNotTest',
       type: 'list',
-      message: 'Pick an runtime environment',
+      message: '选择网站类型',
       choices: [
         {
-          name: 'pc',
+          name: 'PC端',
           value: 'pc',
           short: 'pc',
         },
         {
-          name: 'h5',
+          name: '移动端',
           value: 'h5',
           short: 'h5',
         }
@@ -77,43 +77,43 @@ module.exports = {
     commit_check: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Check git commit message with hife rules ?',
+      message: '是否启用 git commit 规范检查 ?',
       default: true
     },
     options: {
       when: 'isNotTest',
       type: 'checkbox',
-      message: 'Some optional config, All selected by default',
+      message: '可选配置',
       choices: [
         {
-          name: 'sentry',
+          name: 'Sentry (错误采集)',
           value: 'sentry',
           short: 'Sentry',
           checked: true
         },
         {
-          name: 'growingio',
+          name: 'Growingio (统计)',
           value: 'growingio',
           short: 'Growingio',
           checked: true
         },
         {
-          name: 'mandy',
+          name: 'Mandy (静态部署工具)',
           value: 'mandy',
           short: 'Mandy',
           checked: true
         },
         {
-          name: 'qiniu',
+          name: 'Qiniu (静态资源 CDN 上传)',
           value: 'qiniu',
-          short: 'Qiniu CDN',
-          checked: true
+          short: 'Qiniu',
+          checked: false
         },
         {
-          name: 'i18n',
+          name: 'I18n (多语言配置)',
           value: 'i18n',
           short: 'I18n',
-          checked: true
+          checked: false
         },
       ]
     }
