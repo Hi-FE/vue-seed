@@ -28,7 +28,7 @@ const initVue = () => {
     el: '#app',
     router,
     store,{{#if_in options "i18n"}}
-    i18n,{{/if_in}}
+    i18n: i18n.i18n,{{/if_in}}
     components: { App },
     template: '<App/>'
   })
