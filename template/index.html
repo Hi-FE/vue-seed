@@ -21,7 +21,7 @@
 
     <title><%= htmlWebpackPlugin.options.config.title %></title>
 
-    {{#if_or options "growingio"}}
+    {{#if_in options "growingio"}}
     <% if (htmlWebpackPlugin.options.config.growingio.account_id) { %>
       <!-- growing io -->
       <script type="text/javascript">
@@ -46,7 +46,7 @@
         })();
       </script>
     <% } %>
-    {{/if_or}}
+    {{/if_in}}
   </head>
   <body>
     <div id="app"></div>
