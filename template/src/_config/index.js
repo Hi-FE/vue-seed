@@ -1,10 +1,10 @@
-{{#if_or "growingio" "sentry"}}
-// production
+{{#if_in_or options "growingio" "sentry"}}
+// 生产环境下，才应用配置
 const prodDeal = (config) => {
   return process.env.NODE_ENV === 'production' ? config : {}
 }
 
-{{/if_or}}
+{{/if_in_or}}
 // page title
 const title = 'Hife Template'
 
