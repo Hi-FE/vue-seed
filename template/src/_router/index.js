@@ -6,8 +6,6 @@ import others from './others'
 
 Vue.use(Router)
 
-let routes = [shelves, others]
-
 {{#if_in options "i18n"}}
 // 业务类型 划分路由
 const bns_types = [
@@ -25,11 +23,15 @@ const putBusinessType = (sign, routes) => {
   })
 }
 
-routes = []
+let routes = []
 
 bns_types.forEach(item => {
   routes = routes.concat(putBusinessType(item.type, item[item.type]))
 })
+
+{{else}}
+const routes = [shelves, others]
+
 {{/if_in}}
 const router = new Router({
   mode: 'history',
