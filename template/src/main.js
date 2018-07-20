@@ -7,7 +7,7 @@ import store from 'src/_store'{{#if_in options "sentry"}}
 import Config from 'src/_config'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'{{/if_in}}{{#if_in options "i18n"}}
-import i18n from 'src/_i18n'{{/if_in}}
+import I18n from 'src/_i18n'{{/if_in}}
 import App from './App'
 
 Vue.config.productionTip = false;
@@ -16,7 +16,9 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios
 {{#if_in options "i18n"}}
 
-i18n.bindLangParams(router)
+const i18n = new I18n(Config.i18n)
+
+i18n.bindLangQuery(router)
 i18n.bindRequestHeader(axios)
 {{/if_in}}
 

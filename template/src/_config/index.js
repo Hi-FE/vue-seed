@@ -1,4 +1,4 @@
-{{#if_or growingio sentry }}
+{{#if_or "growingio" "sentry"}}
 // production
 const prodDeal = (config) => {
   return process.env.NODE_ENV === 'production' ? config : {}
@@ -25,9 +25,8 @@ const sentry = prodDeal({
 {{#if_in options "i18n"}}
 // sentry
 const i18n = {
-  // 取值与 lang_[name] 中的 name 保持一致
-  locale: 'zh',
-  loaded: ['zh']
+  // 取值与 _i18n 下的 语言包名称保持一致
+  locale: 'zh'
 }
 
 {{/if_in}}

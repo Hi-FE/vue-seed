@@ -2,107 +2,187 @@
 /* eslint no-console : "off" */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import Config from 'src/_config'
 
 const STORAGE_KEY = '_i18n_language'
-
-// 注册 $i18n.changeLocale
-VueI18n.prototype.changeLocale = function (locale = Config.i18n.locale) {
-  this.locale = locale
-
-  // 存储本地
-  try { localStorage.setItem(STORAGE_KEY, locale) } catch (e) { console.error('[i18n] saveCurrentLanguage error', e) }
-
-  return locale
-}
-
-// 注册 $i18n.resetLocale
-VueI18n.prototype.resetLocale = function () {
-  return this.changeLocale(Config.locale)
-}
 
 // 多语言
 Vue.use(VueI18n)
 
-// 本地存储语言
-let localLanguage = ''
-try { localLanguage = localStorage.getItem(STORAGE_KEY) } catch (e) { console.error('[i18n] localLanguage error', e) }
+class I18n {
+  constructor(Config = {}) {
+    this.Config = Config
+    this.loadedLanguages = []
+    this.i18n = this.getI18nInstance()
+    this.body = document.querySelector('body')
 
-const i18n = new VueI18n({
-  // 读取设置的语言，其次再取浏览器默认语言, 最后再取默认语言
-  locale: localLanguage || navigator.language || Config.i18n.locale,
-  fallbackLocale: Config.i18n.locale,
-  silentTranslationWarn: true,
-  messages: {}
-})
+    this.bindI18nMethods()
 
-const loadedLanguages = []
+    // 加载默认语言
+    this.loadLanguageAsync('default')
+  }
 
-function setI18nLanguage (lang) {
-  i18n.locale = lang
-  return lang
-}
+  /**
+   * 获取 VueI18n 实例
+   * @return {VueI18n} VueI18n 实例
+   */
+  getI18nInstance() {
+    const { Config, i18n } = this
 
-// 异步加载语言包
-function loadLanguageAsync (lang = Config.i18n.locale) {
-  if (!loadedLanguages.includes(lang)) {
-    return import(`./lang_${lang}.js`).then(msgs => {
-      i18n.setLocaleMessage(lang, msgs.default)
-      loadedLanguages.push(lang)
-      return setI18nLanguage(lang)
+    if (i18n) return i18n
+
+    const localLanguage = this.getLocalStorageLanguage()
+
+    return new VueI18n({
+      // 读取设置的语言，其次再取浏览器默认语言, 最后再取默认语言
+      locale: localLanguage || navigator.language || Config.locale,
+      fallbackLocale: Config.locale,
+      silentTranslationWarn: true,
+      messages: {}
     })
   }
-  return Promise.resolve(setI18nLanguage(lang))
-}
 
-// 加载默认语言
-Config.i18n.loaded.forEach((locale) => {
-  loadLanguageAsync(locale)
-})
+  /**
+   * 获取本地存储的语言设置
+   * @return {String} 存储语言
+   */
+  getLocalStorageLanguage() {
+    let localLanguage = null
 
-// 绑定路由参数
-i18n.bindLangParams = function (router) {
-  const replace = router.replace.bind(router)
-  let flag = false
+    try { localLanguage = localStorage.getItem(STORAGE_KEY) } catch (e) { console.error('[i18n] localLanguage error', e) }
 
-  router.replace = function (...args) {
-    flag = true
-    return replace(...args)
+    return localLanguage
   }
 
-  // 监听路由 lang 参数，动态引入语言包
-  router.beforeEach((to, from, next) => {
-    const locale = to.params.locale || from.params.locale
+  /**
+   * 设置语言
+   * @param {String} lang 指定语言
+   */
+  setI18nLanguage(lang = this.Config.locale) {
+    const { body, i18n } = this
 
-    if (from.params.locale && !to.params.locale) {
-      return next({ name: to.name, params: { ...to.params, locale }, replace: flag })
+    i18n.locale = lang
+
+    // 更新 body 节点 lang 属性
+    body.setAttribute('lang', lang)
+
+    return lang
+  }
+
+  /**
+   * 异步加载语言包
+   * @param {String} bnstype 指定业务类型
+   * @param {String} lang 指定语言
+   */
+  loadLanguageAsync(bnstype, lang = this.i18n.locale) {
+    const { loadedLanguages, i18n } = this
+    const loaded_sign = `${lang}.${bnstype}`
+
+    if (!loadedLanguages.includes(`${lang}.${bnstype}`)) {
+      return import(`./${lang}/${bnstype}.json`).then(msgs => {
+        const msg = i18n.getLocaleMessage(lang)
+
+        i18n.setLocaleMessage(lang, { ...msg, ...msgs })
+        loadedLanguages.push(loaded_sign)
+
+        return this.setI18nLanguage(lang)
+      }).catch(() => {})
     }
 
-    // 加载新语言
-    if (locale !== i18n.locale) {
-      return loadLanguageAsync(locale).then(() => {
-        next()
-      })
+    return Promise.resolve(this.setI18nLanguage(lang))
+  }
+
+  /**
+   * Vue 实例属性 $i18n， 绑定语言处理相关方法
+   * $i18n.changeLocale / $i18n.resetLocale
+   */
+  bindI18nMethods() {
+    const { Config } = this
+
+    /**
+     * Vue 实例修改语言
+     * @param {String} locale 指定语言
+     */
+    VueI18n.prototype.changeLocale = function (locale = Config.locale) {
+      this.locale = locale
+
+      // 存储本地
+      try { localStorage.setItem(STORAGE_KEY, locale) } catch (e) { console.error('[i18n] saveCurrentLanguage error', e) }
+
+      return locale
     }
 
-    next()
-  })
+    /**
+     * Vue 实例重置语言
+     */
+    VueI18n.prototype.resetLocale = function () {
+      return this.changeLocale(Config.locale)
+    }
+  }
 
-  router.afterEach(() => {
-    flag = false
-  })
+  /**
+   * 绑定路由参数 lang
+   * @param {VueRouter} router VueRouter 实例
+   */
+  bindLangQuery(router) {
+    const { i18n, Config } = this
+    const replace = router.replace.bind(router)
+    let flag = false
+
+    router.replace = function (...args) {
+      flag = true
+      return replace(...args)
+    }
+
+    // 监听路由 lang 参数，动态引入语言包
+    router.beforeEach((to, from, next) => {
+      const lang = to.query.lang || from.query.lang
+
+      if (from.params.locale && !to.params.locale) {
+        return next({ name: to.name, query: { ...to.query, lang }, replace: flag })
+      }
+
+      // 加载新语言
+      if (lang !== i18n.locale) {
+        const languages = []
+
+        // 加载默认语言包
+        languages.push(this.loadLanguageAsync('default', lang))
+
+        // 加载路由默认语言包
+        languages.push(this.loadLanguageAsync(to.meta.bnstype, Config.locale))
+
+        // 加载路由语言包
+        if (lang !== Config.locale) languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
+
+        return Promise.all(languages).then(() => {
+          next()
+        })
+      }
+
+      next()
+    })
+
+    router.afterEach(() => {
+      flag = false
+    })
+  }
+
+  /**
+   * 绑定接口参数 lang
+   * @param {axios} axios axios 实例
+   */
+  bindRequestHeader(axios) {
+    if (!axios) return
+
+    const { i18n } = this
+
+    axios.interceptors.request.use(config => {
+      // 所有请求类型，补充渠道参数到请求 url 上
+      config.params = { ...config.params, lang: i18n.locale }
+
+      return config
+    })
+  }
 }
 
-// 绑定请求头参数
-i18n.bindRequestHeader = function (axios) {
-  if (!axios) return
-
-  axios.interceptors.request.use(config => {
-    // 所有请求类型，补充渠道参数到请求 url 上
-    config.params = { ...config.params, language: i18n.locale }
-
-    return config
-  })
-}
-
-export default i18n
+export default I18n
