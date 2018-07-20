@@ -34,6 +34,13 @@ module.exports = {
 
       return options.inverse(this)
     },
+    if_in_or(v1, ...args) {
+      const options = args[args.length - 1]
+
+      if (args.some(item => !!(v1 || {})[item])) return options.fn(this)
+
+      return options.inverse(this)
+    },
     template_version() {
       return templateVersion
     }
