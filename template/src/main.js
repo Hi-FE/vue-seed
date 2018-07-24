@@ -21,7 +21,6 @@ const i18n = new I18n(Config.i18n)
 i18n.bindLangQuery(router)
 i18n.bindRequestHeader(axios)
 {{/if_in}}
-
 {{#if_in options "growingio"}}
 
 const growingio = new Growingio(Config.growingio)
@@ -30,7 +29,8 @@ if (process.env.NODE_ENV === 'production') growingio.requestSDK()
 {{#if_in options "sentry"}}
 
 const sentry = new Sentry(Config.sentry)
-if (process.env.NODE_ENV === 'production')  Vue.use(sentry)
+if (process.env.NODE_ENV === 'production') Vue.use(sentry)
+
 sentry.context(() => {
   new Vue({
     el: '#app',
