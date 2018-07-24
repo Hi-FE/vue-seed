@@ -90,7 +90,7 @@ module.exports = {
     unit_test: {
       when: 'isNotTest',
       type: 'confirm',
-      message: '使用 Karma + Mocha 测试框架 ?',
+      message: '使用 Karma + Mocha 单元测试 ?',
       default: true
     },
     options: {
