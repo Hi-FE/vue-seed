@@ -2,6 +2,7 @@
 // growingio
 const growingio = {
   account_id: ''
+  js_sdk: '//dn-growing.qbox.me/vds.js'
 }
 
 {{/if_in}}
