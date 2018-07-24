@@ -1,7 +1,7 @@
 {{#if_in options "growingio"}}
 // growingio
 const growingio = {
-  account_id: ''
+  account_id: '',
   js_sdk: '//dn-growing.qbox.me/vds.js'
 }
 
