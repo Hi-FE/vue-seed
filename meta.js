@@ -132,7 +132,7 @@ module.exports = {
     }
   },
   filters: {
-    'test/**/*': 'unit_test',
+    'test/unit/**/*': 'unit_test',
     'scripts/**/*': 'commit_check',
     'mandy/**/*': 'options.mandy',
     'src/_i18n/*': 'options.i18n',
