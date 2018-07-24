@@ -21,7 +21,7 @@ class Growingio {
     vds.async = true;
     vds.src = js_sdk
 
-    header.insertBefore(vds, s);
+    header.append(vds)
   }
 }
 

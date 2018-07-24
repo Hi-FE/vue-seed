@@ -5,10 +5,11 @@ class Sentry {
   constructor({dsn}) {
     this.dsn = dsn
     this.raven = null
-    this.init(dsn)
   }
 
-  init(dsn) {
+  install(Vue) {
+    const { dsn } = this
+
     if (dsn) this.raven = Raven.config(dsn).addPlugin(RavenVue, Vue).install()
 
     return this
