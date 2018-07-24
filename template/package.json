@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev"{{#test}},
-    "test": "karma start test/unit/karma.conf.js --single-run"{{/test}},
+    "start": "npm run dev"{{#unit_test}},
+    "test": "karma start test/unit/karma.conf.js --single-run"{{/unit_test}},
     "lint": "eslint --fix --ext .js,.vue src test/unit",
     "build": "node build/build.js"{{#commit_check}},
     "commitmsg": "npm run checkCommit",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     {{#if_in options "i18n"}}
-    "@kazupon/vue-i18n-loader": "^0.3.0",{{/if_in}}{{#test}}
+    "@kazupon/vue-i18n-loader": "^0.3.0",{{/if_in}}{{#unit_test}}
     "@vue/test-utils": "^1.0.0-beta.20",
     "karma": "^2.0.4",
     "karma-chrome-launcher": "^2.2.0",
@@ -33,7 +33,8 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^3.0.0",
-    "mocha": "^5.2.0",{{/test}}
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",{{/unit_test}}
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -45,8 +46,7 @@
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",{{#if_in options "qiniu"}}
     "cross-env": "^5.1.4",
-    "better-qiniu-webpack-plugin": "0.0.2",{{/if_in}}{{#test}}
-    "chai": "^4.1.2",{{/test}}
+    "better-qiniu-webpack-plugin": "0.0.2",{{/if_in}}
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
