@@ -136,6 +136,7 @@ module.exports = {
     'scripts/**/*': 'commit_check',
     'mandy/**/*': 'options.mandy',
     'src/_i18n/*': 'options.i18n',
+    'src/_utils/sentry.js': 'options.sentry'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
