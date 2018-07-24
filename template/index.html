@@ -19,34 +19,7 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-min.css">
 
-    <title><%= htmlWebpackPlugin.options.config.title %></title>
-
-    {{#if_in options "growingio"}}
-    <% if (htmlWebpackPlugin.options.config.growingio.account_id) { %>
-      <!-- growing io -->
-      <script type="text/javascript">
-        (function(){
-          var _vds = _vds || [];
-          var account_id = '<%= htmlWebpackPlugin.options.config.growingio.account_id %>'
-
-          _vds.push(['setAccountId', account_id]);
-
-          if (account_id) {
-            (function() {
-              var vds = document.createElement('script');
-              vds.type='text/javascript';
-              vds.async = true;
-              vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
-              var s = document.getElementsByTagName('script')[0];
-              s.parentNode.insertBefore(vds, s);
-            })();
-          }
-
-          window._vds = _vds;
-        })();
-      </script>
-    <% } %>
-    {{/if_in}}
+    <title>HIFE Template</title>
   </head>
   <body>
     <div id="app"></div>

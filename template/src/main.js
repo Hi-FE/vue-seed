@@ -8,6 +8,7 @@ import store from 'src/_store'{{#if_in_or options "i18n" "sentry"}}
 import Config from 'src/_config'{{/if_in_or}}{{#if_in options "i18n"}}
 import I18n from 'src/_i18n'{{/if_in}}{{#if_in options "sentry"}}
 import Sentry from 'src/_utils/sentry'{{/if_in}}
+import Growingio from 'src/_utils/growingio'
 import App from './App'
 
 Vue.config.productionTip = false;
@@ -17,14 +18,17 @@ Vue.prototype.$http = axios
 {{#if_in options "i18n"}}
 
 const i18n = new I18n(Config.i18n)
-
 i18n.bindLangQuery(router)
 i18n.bindRequestHeader(axios)
 {{/if_in}}
+{{#if_in options "growingio"}}
 
+const growingio = new Growingio(Config.growingio)
+growingio.requestSDK()
+{{/if_in}}
 {{#if_in options "sentry"}}
-const sentry = new Sentry(Config.sentry.dsn)
 
+const sentry = new Sentry(Config.sentry.dsn)
 sentry.context(() => {
   new Vue({
     el: '#app',
@@ -35,7 +39,6 @@ sentry.context(() => {
     template: '<App/>'
   })
 })
-
 {{else}}
 
 new Vue({
