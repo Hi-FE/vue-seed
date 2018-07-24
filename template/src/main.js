@@ -28,7 +28,7 @@ growingio.requestSDK()
 {{/if_in}}
 {{#if_in options "sentry"}}
 
-const sentry = new Sentry(Config.sentry.dsn)
+const sentry = new Sentry(Config.sentry)
 sentry.context(() => {
   new Vue({
     el: '#app',

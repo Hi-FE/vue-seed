@@ -2,7 +2,7 @@ import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
 
 class Sentry {
-  constructor(dsn) {
+  constructor({dsn}) {
     this.dsn = dsn
     this.raven = null
     this.init(dsn)
