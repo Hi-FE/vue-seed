@@ -1,3 +1,4 @@
+/* eslint comma-dangle : "off" */
 {{#if_in options "growingio"}}
 // growingio
 const growingio = {
