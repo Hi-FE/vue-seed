@@ -138,15 +138,15 @@ module.exports = {
     }
   },
   filters: {
-    'src/**/*.js': '!typescript',
-    'src/**/*.ts': 'typescript',
-    'src/tsconfig.json': 'typescript',
     'test/unit/**/*': 'unit_test',
     'scripts/**/*': 'commit_check',
     'mandy/**/*': 'options.mandy',
-    'src/_i18n/*': 'options.i18n',
+    'src/_i18n/**/*': 'options.i18n',
     'src/_utils/sentry.*': 'options.sentry',
-    'src/_utils/growingio.*': 'options.growingio'
+    'src/_utils/growingio.*': 'options.growingio',
+    'src/**/*.js': '!typescript',
+    'src/**/*.ts': 'typescript',
+    'src/tsconfig.json': 'typescript'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
