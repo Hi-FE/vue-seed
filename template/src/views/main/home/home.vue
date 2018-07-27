@@ -10,6 +10,15 @@
 
 </style>
 
+{{#typescript}}
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class Home extends Vue {
+}
+</script>
+{{else}}
 <script>
 export default {
   name: 'home',
@@ -18,6 +27,7 @@ export default {
   }
 }
 </script>
+{{/typescript}}
 {{#if_in options "i18n"}}
 
 <i18n>

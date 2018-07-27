@@ -83,6 +83,16 @@
   </div>
 </template>
 
+{{#typescript}}
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class HelloWorld extends Vue {
+  msg: string = 'Welcome to Your Vue.js App'
+}
+</script>
+{{else}}
 <script>
 export default {
   name: 'HelloWorld',
@@ -93,6 +103,7 @@ export default {
   }
 };
 </script>
+{{/typescript}}
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

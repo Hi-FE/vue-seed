@@ -19,7 +19,8 @@
     "axios": "^0.18.0",{{#if_in options "sentry"}}
     "raven-js": "^3.24.0",{{/if_in}}
     "vue": "^2.5.2",{{#if_in options "i18n"}}
-    "vue-i18n": "^7.8.0",{{/if_in}}
+    "vue-i18n": "^7.8.0",{{/if_in}}{{#typescript}}
+    "vue-property-decorator": "^7.0.0",{{/typescript}}
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
@@ -34,10 +35,17 @@
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^3.0.0",
     "chai": "^4.1.2",
-    "mocha": "^5.2.0",{{/unit_test}}
+    "mocha": "^5.2.0",{{/unit_test}}{{#typescript}}
+    "typescript": "^2.9.2",
+    "ts-loader": "^3.5.0",
+    "eslint-config-standard-with-typescript": "^4.0.0",
+    "typescript-eslint-parser": "^16.0.1",
+    "@types/webpack-env": "^1.13.6",{{else}}
+    "babel-eslint": "^8.2.1",
+    "eslint-config-standard": "^11.0.0",
+    {{/typescript}}
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
-    "babel-eslint": "^8.2.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-syntax-jsx": "^6.18.0",
@@ -50,16 +58,15 @@
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
-    "eslint": "^5.2.0",
-    "eslint-config-standard": "^11.0.0",
+    "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-import-resolver-webpack": "^0.8.3",
-    "eslint-loader": "^2.1.0",
+    "eslint-loader": "^1.9.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "eslint-plugin-vue": "^5.0.0-beta.0",
+    "eslint-plugin-vue": "^4.7.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",

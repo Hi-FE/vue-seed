@@ -9,7 +9,7 @@ import Config from 'src/_config'{{/if_in_or}}{{#if_in options "i18n"}}
 import I18n from 'src/_i18n'{{/if_in}}{{#if_in options "sentry"}}
 import Sentry from 'src/_utils/sentry'{{/if_in}}{{#if_in options "growingio"}}
 import Growingio from 'src/_utils/growingio'{{/if_in}}
-import App from './App'
+import App from './App.vue'
 
 Vue.config.productionTip = false;
 

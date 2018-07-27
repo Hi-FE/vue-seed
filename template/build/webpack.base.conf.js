@@ -23,7 +23,7 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: {{#typescript}}'./src/main.ts'{{else}}'./src/main.js'{{/typescript}}
   },
   output: {
     path: config.build.assetsRoot,
@@ -33,12 +33,11 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: [{{#typescript}}'.ts', {{/typescript}}'.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       'views': resolve('src/views'),
-      'src': resolve('src'),
-      '@': resolve('src'),
+      'src': resolve('src')
     }
   },
   module: {
@@ -53,7 +52,15 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
-      },
+      },{{#typescript}}
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        }
+      },{{/typescript}}
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',

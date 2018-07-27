@@ -62,7 +62,7 @@ module.exports = {
     author: {
       when: 'isNotTest',
       type: 'string',
-      message: 'author',
+      message: '作者',
     },
     env: {
       when: 'isNotTest',
@@ -92,6 +92,12 @@ module.exports = {
       type: 'confirm',
       message: '使用 Karma + Mocha 单元测试 ?',
       default: true
+    },
+    typescript: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: '使用 TypeScript (Beta) ?',
+      default: false
     },
     options: {
       when: 'isNotTest',
@@ -132,12 +138,15 @@ module.exports = {
     }
   },
   filters: {
+    'src/**/*.js': '!typescript',
+    'src/**/*.ts': 'typescript',
+    'src/tsconfig.json': 'typescript',
     'test/unit/**/*': 'unit_test',
     'scripts/**/*': 'commit_check',
     'mandy/**/*': 'options.mandy',
     'src/_i18n/*': 'options.i18n',
-    'src/_utils/sentry.js': 'options.sentry',
-    'src/_utils/growingio.js': 'options.growingio'
+    'src/_utils/sentry.*': 'options.sentry',
+    'src/_utils/growingio.*': 'options.growingio'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green

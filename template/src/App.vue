@@ -6,6 +6,18 @@
   </div>
 </template>
 
+{{#typescript}}
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+
+@Component
+export default class App extends Vue {
+  created() {
+    this.$store.dispatch('setHelloWorld', 'hello world')
+  }
+}
+</script>
+{{else}}
 <script>
 export default {
   name: 'App',
@@ -17,6 +29,7 @@ export default {
   }
 };
 </script>
+{{/typescript}}
 
 <style lang="stylus">
 #app {

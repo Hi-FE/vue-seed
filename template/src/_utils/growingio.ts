@@ -1,11 +1,14 @@
 class Growingio {
-  constructor({account_id, js_sdk}) {
+  js_sdk: string
+  account_id: string
+
+  constructor({ js_sdk, account_id }: { js_sdk: string, account_id: string }) {
     this.js_sdk = js_sdk
     this.account_id = account_id
     this.init(account_id)
   }
 
-  init(account_id) {
+  init(account_id: string) {
     window._vds = [['setAccountId', account_id]]
   }
 
@@ -21,7 +24,7 @@ class Growingio {
     vds.async = true;
     vds.src = js_sdk
 
-    header.append(vds)
+    header.appendChild(vds)
   }
 }
 

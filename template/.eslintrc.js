@@ -1,10 +1,18 @@
 module.exports = {
-  root: true,
+  root: true,{{#typescript}}
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: 'typescript-eslint-parser',
+  },
+  extends: [
+    'plugin:vue/essential',
+    'eslint-config-standard-with-typescript'
+  ],{{else}}
   parserOptions: {
     parser: 'babel-eslint'
   },
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-  extends: ['plugin:vue/essential', 'standard'],
+  extends: ['plugin:vue/essential', 'standard'],{{/typescript}}
   // required to lint *.vue files
   plugins: [
     'vue'
