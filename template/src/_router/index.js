@@ -4,6 +4,8 @@ import Router from 'vue-router';
 import main from './main'
 import others from './others'
 
+let routes = []
+
 Vue.use(Router)
 
 {{#if_in options "i18n"}}
@@ -23,14 +25,12 @@ const putBusinessType = (sign, routes) => {
   })
 }
 
-let routes = []
-
 bns_types.forEach(item => {
   routes = routes.concat(putBusinessType(item.type, item.routes))
 })
 
 {{else}}
-const routes = [main, others]
+routes = routes.concat(main, others)
 
 {{/if_in}}
 const router = new Router({

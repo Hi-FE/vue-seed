@@ -4,9 +4,6 @@ import Router from 'vue-router';
 import main from './main'
 import others from './others'
 
-Vue.use(Router)
-
-{{#if_in options "i18n"}}
 interface Route {
   name: string
   path: string
@@ -17,6 +14,11 @@ interface Route {
   }
 }
 
+let routes: Array<Route> = []
+
+Vue.use(Router)
+
+{{#if_in options "i18n"}}
 // 业务类型 划分路由
 const bns_types = [
   { type: 'main', routes: main },
@@ -33,14 +35,12 @@ const putBusinessType = (sign: string, routes: Array<Route>) => {
   })
 }
 
-let routes: Array<Route> = []
-
 bns_types.forEach(item => {
   routes = routes.concat(putBusinessType(item.type, item.routes))
 })
 
 {{else}}
-const routes = [main, others]
+routes = routes.concat(main, others)
 
 {{/if_in}}
 const router = new Router({
