@@ -81,6 +81,12 @@ module.exports = {
         }
       ],
     },
+    vconsole: {
+      when: 'isNotTest && env === "h5"',
+      type: 'confirm',
+      message: '使用 vConsole 调试移动端 ?',
+      default: true
+    },
     commit_check: {
       when: 'isNotTest',
       type: 'confirm',

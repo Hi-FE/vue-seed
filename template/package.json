@@ -12,12 +12,13 @@
     "build": "node build/build.js"{{#commit_check}},
     "commitmsg": "npm run checkCommit",
     "checkCommit": "node scripts/check-commit-message.js"{{/commit_check}}{{#if_in options "mandy"}},
-    "deploy:dev": "npm run build && mandy deploy dev",
-    "deploy:prod": "{{#if_in options "qiniu"}}cross-env CDN_ENV=qiniu {{/if_in}}npm run build && mandy deploy prod"{{/if_in}}
+    "deploy:dev": "cross-env DEPLOY_ENV=dev npm run build && mandy deploy dev",
+    "deploy:prod": "cross-env DEPLOY_ENV=prod {{#if_in options "qiniu"}}CDN_ENV=qiniu {{/if_in}}npm run build && mandy deploy prod"{{/if_in}}
   },
   "dependencies": {
     "axios": "^0.18.0",{{#if_in options "sentry"}}
-    "raven-js": "^3.24.0",{{/if_in}}
+    "raven-js": "^3.24.0",{{/if_in}}{{#vconsole}}
+    "vconsole": "^3.2.0",{{/vconsole}}
     "vue": "^2.5.2",{{#if_in options "i18n"}}
     "vue-i18n": "^7.8.0",{{/if_in}}{{#typescript}}
     "vue-property-decorator": "^7.0.0",{{/typescript}}
@@ -88,7 +89,8 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "uglifyjs-webpack-plugin": "^1.1.1",
-    "url-loader": "^0.5.8",
+    "url-loader": "^0.5.8",{{#vconsole}}
+    "vconsole-webpack-plugin": "^1.4.0",{{/vconsole}}
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",

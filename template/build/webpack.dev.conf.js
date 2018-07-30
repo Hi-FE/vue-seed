@@ -67,6 +67,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     ])
   ]
 })
+{{#vconsole}}
+
+if (config.dev.vconsole) {
+  let VConsolePlugin = require('vconsole-webpack-plugin')
+  devWebpackConfig.plugins.push(new VConsolePlugin({
+    enable: true
+  }))
+}
+{{/vconsole}}
 
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port

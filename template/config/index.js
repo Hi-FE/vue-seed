@@ -71,7 +71,8 @@ module.exports = {
     cssSourceMap: true{{#if_in options "mandy"}},
 
     // deploy
-    deploy: devDeploy{{/if_in}}
+    deploy: devDeploy{{/if_in}}{{#vconsole}},
+    vconsole: false{{/vconsole}}
   },
 
   build: {

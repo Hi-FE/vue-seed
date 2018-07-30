@@ -144,12 +144,23 @@ if (config.build.productionGzip) {
 if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
-}{{#if_in options "qiniu"}}
+}
+{{#if_in options "qiniu"}}
 
 // 静态资源 cdn 部署
 if (env.CDN_ENV === '"qiniu"') {
   var QiniuPlugin = require('better-qiniu-webpack-plugin')
   webpackConfig.plugins.push(new QiniuPlugin(config.build.qiniuDeploy))
-}{{/if_in}}
+}
+{{/if_in}}
+{{#vconsole}}
+
+// 部署到测试环境
+if (process.env.DEPLOY_ENV === 'dev') {
+  var VConsolePlugin = require('vconsole-webpack-plugin')
+  webpackConfig.plugins.push(new VConsolePlugin({
+    enable: true
+  }))
+} {{/vconsole}}
 
 module.exports = webpackConfig
