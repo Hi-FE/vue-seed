@@ -1,8 +1,7 @@
 <template>
   <div>
     This is home page{{#if_in options "i18n"}}
-    <span v-text="$t('test')"></span>
-    {{/if_in}}
+    <span v-text="$t('test')"></span>{{/if_in}}
   </div>
 </template>
 
