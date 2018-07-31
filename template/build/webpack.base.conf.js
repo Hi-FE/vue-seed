@@ -33,7 +33,7 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: [{{#typescript}}'.ts', {{/typescript}}'.js', '.vue', '.json'],
+    extensions: [{{#typescript}}'.ts', '.d.ts', {{/typescript}}'.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       'views': resolve('src/views'),
