@@ -84,7 +84,7 @@ class I18n {
     const { loadedLanguages, i18n } = this
     const loaded_sign = `${lang}.${bnstype}`
 
-    if (!loadedLanguages.includes(`${lang}.${bnstype}`)) {
+    if (!loadedLanguages.includes(loaded_sign)) {
       return import(`./${lang}/${bnstype}.json`).then(msgs => {
         const msg = i18n.getLocaleMessage(lang)
 
@@ -144,7 +144,7 @@ class I18n {
     router.beforeEach((to, from, next) => {
       const lang = to.query.lang || from.query.lang
 
-      if (from.params.locale && !to.params.locale) {
+      if (from.query.lang && !to.query.lang) {
         return next({ name: to.name, query: { ...to.query, lang }, replace: flag })
       }
 
