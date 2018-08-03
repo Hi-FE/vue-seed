@@ -129,7 +129,7 @@ class I18n {
    * @param {VueRouter} router VueRouter 实例
    */
   bindLangQuery(router) {
-    const { i18n, locale } = this
+    const { locale } = this
     const replace = router.replace.bind(router)
     let flag = false
 
@@ -146,27 +146,22 @@ class I18n {
         return next({ name: to.name, query: { ...to.query, lang }, replace: flag })
       }
 
-      // 加载新语言
-      if (lang !== i18n.locale) {
-        const languages = []
+      const languages = []
 
-        // 加载默认语言包
-        if (lang && lang !== locale) {
-          languages.push(this.loadLanguageAsync('default', lang))
+      // 加载默认语言包
+      if (lang && lang !== locale) {
+        languages.push(this.loadLanguageAsync('default', lang))
 
-          // 加载路由语言包
-          languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
-        }
-
-        // 加载路由默认语言包
-        if (to.meta.bnstype) languages.push(this.loadLanguageAsync(to.meta.bnstype, locale))
-
-        return Promise.all(languages).then(() => {
-          next()
-        })
+        // 加载路由语言包
+        languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
       }
 
-      next()
+      // 加载路由默认语言包
+      if (to.meta.bnstype) languages.push(this.loadLanguageAsync(to.meta.bnstype, locale))
+
+      return Promise.all(languages).then(() => {
+        next()
+      })
     })
 
     router.afterEach(() => {
