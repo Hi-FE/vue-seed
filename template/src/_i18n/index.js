@@ -9,8 +9,8 @@ const STORAGE_KEY = '_i18n_language'
 Vue.use(VueI18n)
 
 class I18n {
-  constructor(Config = {}) {
-    this.Config = Config
+  constructor({ locale } = {}) {
+    this.locale = locale
     this.loadedLanguages = []
     this.i18n = this.getI18nInstance()
     this.body = document.querySelector('body')
@@ -26,7 +26,7 @@ class I18n {
    * @return {VueI18n} VueI18n 实例
    */
   getI18nInstance() {
-    const { Config, i18n } = this
+    const { locale, i18n } = this
 
     if (i18n) return i18n
 
@@ -34,8 +34,8 @@ class I18n {
 
     return new VueI18n({
       // 读取设置的语言，其次再取浏览器默认语言, 最后再取默认语言
-      locale: localLanguage || navigator.language || Config.locale,
-      fallbackLocale: Config.locale,
+      locale: localLanguage || navigator.language || locale,
+      fallbackLocale: locale,
       silentTranslationWarn: true,
       messages: {}
     })
@@ -57,7 +57,7 @@ class I18n {
    * 设置语言
    * @param {String} lang 指定语言
    */
-  setI18nLanguage(lang = this.Config.locale) {
+  setI18nLanguage(lang = this.locale) {
     const { body, i18n } = this
 
     i18n.locale = lang
@@ -96,26 +96,26 @@ class I18n {
    * $i18n.changeLocale / $i18n.resetLocale
    */
   bindI18nMethods() {
-    const { Config } = this
+    const { locale } = this
 
     /**
      * Vue 实例修改语言
      * @param {String} locale 指定语言
      */
-    VueI18n.prototype.changeLocale = function (locale = Config.locale) {
-      this.locale = locale
+    VueI18n.prototype.changeLocale = function (lce = locale) {
+      this.locale = lce
 
       // 存储本地
-      try { localStorage.setItem(STORAGE_KEY, locale) } catch (e) { console.error('[i18n] saveCurrentLanguage error', e) }
+      try { localStorage.setItem(STORAGE_KEY, lce) } catch (e) { console.error('[i18n] saveCurrentLanguage error', e) }
 
-      return locale
+      return lce
     }
 
     /**
      * Vue 实例重置语言
      */
     VueI18n.prototype.resetLocale = function () {
-      return this.changeLocale(Config.locale)
+      return this.changeLocale(locale)
     }
   }
 
@@ -124,7 +124,7 @@ class I18n {
    * @param {VueRouter} router VueRouter 实例
    */
   bindLangQuery(router) {
-    const { i18n, Config } = this
+    const { i18n, locale } = this
     const replace = router.replace.bind(router)
     let flag = false
 
@@ -146,13 +146,15 @@ class I18n {
         const languages = []
 
         // 加载默认语言包
-        languages.push(this.loadLanguageAsync('default', lang))
+        if (lang && lang !== locale) {
+          languages.push(this.loadLanguageAsync('default', lang))
+
+          // 加载路由语言包
+          languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
+        }
 
         // 加载路由默认语言包
-        languages.push(this.loadLanguageAsync(to.meta.bnstype, Config.locale))
-
-        // 加载路由语言包
-        if (lang !== Config.locale) languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
+        if (to.meta.bnstype) languages.push(this.loadLanguageAsync(to.meta.bnstype, locale))
 
         return Promise.all(languages).then(() => {
           next()

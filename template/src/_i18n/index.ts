@@ -153,13 +153,15 @@ class I18n {
         const languages = []
 
         // 加载默认语言包
-        languages.push(this.loadLanguageAsync('default', lang))
+        if (lang && lang !== locale) {
+          languages.push(this.loadLanguageAsync('default', lang))
+
+          // 加载路由语言包
+          languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
+        }
 
         // 加载路由默认语言包
-        languages.push(this.loadLanguageAsync(to.meta.bnstype, locale))
-
-        // 加载路由语言包
-        if (lang !== locale) languages.push(this.loadLanguageAsync(to.meta.bnstype, lang))
+        if (to.meta.bnstype) languages.push(this.loadLanguageAsync(to.meta.bnstype, locale))
 
         return Promise.all(languages).then(() => {
           next()
