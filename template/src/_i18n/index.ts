@@ -92,7 +92,9 @@ class I18n {
         loadedLanguages.push(loaded_sign)
 
         return this.setI18nLanguage(lang)
-      }).catch(() => {})
+      }).catch(() => {
+        console.warn(`[i18n] 查找不到指定语言包 ${`./${lang}/${bnstype}.json`}`)
+      })
     }
 
     return Promise.resolve(this.setI18nLanguage(lang))
