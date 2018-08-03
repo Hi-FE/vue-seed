@@ -17,8 +17,11 @@ class I18n {
 
     this.bindI18nMethods()
 
-    // 加载默认语言
-    this.loadLanguageAsync('default')
+    // 加载默认语言包
+    this.loadLanguageAsync('default', locale)
+
+    // 加载当前配置默认语言包
+    this.loadLanguageAsync('default', this.i18n.locale)
   }
 
   /**
