@@ -150,7 +150,7 @@ class I18n {
       const lang = to.query.lang || from.query.lang
 
       if (from.query.lang && !to.query.lang) {
-        return next({ name: to.name, query: { ...to.query, lang }, replace: flag })
+        return next({ ...to, query: { ...to.query, lang }, replace: flag })
       }
 
       const languages = []
