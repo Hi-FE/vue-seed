@@ -143,7 +143,21 @@ npm run dev
 
 # build for production with minification
 npm run build
+```
+{{#if_in options "mandy"}}
+## Deloy Setup
 
+> 请自行到 `mandy` 目录下，配置测试(`dev.js`)与生产(`prod.js`)环境部署信息
+
+##### 配置字段
+
+> 必需字段配置:  host, port, username, password, deployTo
+
+- 测试 / 生产环境，deployTo(部署目录) 请到 `config/index.js` - `devDeploy.target`中配置
+- 生产环境，password(密码) 请到 `config/index.js` - `prodDeploy.password`中配置
+
+##### 部署命令
+```bash
 # 打包并且部署到指定测试服务器上
 npm run deploy:dev
 
@@ -155,4 +169,4 @@ mandy deploy dev
 
 # 已打包，部署到指定生产服务器上
 mandy deploy prod
-```
+```{{/if_in}}
