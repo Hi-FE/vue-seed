@@ -2,7 +2,7 @@
 /* eslint no-console : "off" */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import VueRouter from 'vue-router/types'
+import VueRouter, { Location } from 'vue-router/types'
 import { AxiosStatic } from 'axios'
 
 const STORAGE_KEY = '_i18n_language'
@@ -150,7 +150,16 @@ class I18n {
       const lang = to.query.lang || from.query.lang
 
       if (from.query.lang && !to.query.lang) {
-        return next({ ...to, query: { ...to.query, lang }, replace: flag })
+        const location: Location = {
+          name: to.name,
+          path: to.path,
+          hash: to.hash,
+          params: to.params,
+          replace: flag,
+          query: { ...to.query, lang }
+        }
+
+        return next(location)
       }
 
       const languages = []
