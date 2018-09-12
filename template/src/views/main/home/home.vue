@@ -11,20 +11,20 @@
 
 {{#typescript}}
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+  import { Vue, Component } from 'vue-property-decorator'
 
-@Component
-export default class Home extends Vue {
-}
+  @Component
+  export default class Home extends Vue {
+  }
 </script>
 {{else}}
 <script>
-export default {
-  name: 'home',
-  data: function () {
-    return {}
+  export default {
+    name: 'home',
+    data: function () {
+      return {}
+    }
   }
-}
 </script>
 {{/typescript}}
 {{#if_in options "i18n"}}
