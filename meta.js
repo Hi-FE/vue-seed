@@ -152,7 +152,7 @@ module.exports = {
     'src/_utils/growingio.*': 'options.growingio',
     'src/**/*.js': '!typescript',
     'src/**/*.ts': 'typescript',
-    'src/tsconfig.json': 'typescript'
+    'tsconfig.json': 'typescript'
   },
   complete: function(data, { chalk }) {
     const green = chalk.green
