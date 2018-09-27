@@ -2,7 +2,7 @@
 /* eslint no-console : "off" */
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import VueRouter, { Location } from 'vue-router/types'
+import VueRouter, { Location, Route } from 'vue-router/types'
 import { AxiosStatic } from 'axios'
 
 const STORAGE_KEY = '_i18n_language'
@@ -65,15 +65,20 @@ class I18n {
 
   /**
    * 设置语言
+   * @param {String} bnstype 指定路由业务类型
    * @param {String} lang 指定语言
    */
-  setI18nLanguage(lang = this.locale) {
+  setI18nLanguage(bnstype: string, lang: string) {
     const { body, i18n } = this
 
     i18n.locale = lang
 
     // 更新 body 节点 lang 属性
     if (body) body.setAttribute('lang', lang)
+
+    // 加载语言包
+    this.loadLanguageAsync('default', lang)
+    this.loadLanguageAsync(bnstype, lang)
 
     return lang
   }
@@ -83,7 +88,7 @@ class I18n {
    * @param {String} bnstype 指定业务类型
    * @param {String} lang 指定语言
    */
-  loadLanguageAsync(bnstype: string, lang = this.i18n.locale) {
+  loadLanguageAsync(bnstype = 'default', lang = this.i18n.locale) {
     const { loadedLanguages, i18n } = this
     const loaded_sign = `${lang}.${bnstype}`
 
@@ -94,13 +99,13 @@ class I18n {
         i18n.setLocaleMessage(lang, { ...msg, ...msgs })
         loadedLanguages.push(loaded_sign)
 
-        return this.setI18nLanguage(lang)
+        return lang
       }).catch(() => {
         console.warn(`[i18n] 查找不到指定语言包 ${`./${lang}/${bnstype}.json`}`)
       })
     }
 
-    return Promise.resolve(this.setI18nLanguage(lang))
+    return Promise.resolve(lang)
   }
 
   /**
@@ -109,13 +114,15 @@ class I18n {
    */
   bindI18nMethods() {
     const { locale } = this
+    const setI18nLanguage = this.setI18nLanguage.bind(this)
 
     /**
      * Vue 实例修改语言
+     * @param {String} bnstype 指定路由业务类型
      * @param {String} locale 指定语言
      */
-    Vue.prototype.$changeLocale = function (lce = locale) {
-      this.$i18n.locale = lce
+    Vue.prototype.$changeLocale = function (bnstype: string, lce: string) {
+      setI18nLanguage(bnstype, lce)
 
       // 存储本地
       try { localStorage.setItem(STORAGE_KEY, lce) } catch (e) { console.error('[i18n] saveCurrentLanguage error', e) }
@@ -146,7 +153,7 @@ class I18n {
     }
 
     // 监听路由 lang 参数，动态引入语言包
-    router.beforeEach((to, from, next) => {
+    router.beforeEach((to: Route, from: Route, next: Function) => {
       const lang = to.query.lang || from.query.lang
 
       if (from.query.lang && !to.query.lang) {
@@ -165,7 +172,7 @@ class I18n {
       const languages = []
 
       // 加载默认语言包
-      if (lang && lang !== locale) {
+      if (lang !== locale) {
         languages.push(this.loadLanguageAsync('default', lang))
 
         // 加载路由语言包
