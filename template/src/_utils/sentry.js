@@ -46,14 +46,11 @@ class Sentry {
       Raven.setExtraContext(data)
 
       // 执行 RavenVue 实现的 errorHandler
+      // 采集错误
       errorHandler(err, vm, info)
 
       // 删除新参数
-      const context = Raven.getContext()
-      const extra = { ...context.extra }
-      for (const key in extra) delete extra[key]
       Raven.setExtraContext()
-      Raven.setExtraContext(extra)
     }
   }
 }
