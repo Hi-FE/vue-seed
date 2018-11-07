@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 /* eslint-disable no-new */
-import Vue from 'vue'
+import Vue, { VNode } from 'vue'
 import router from 'src/_router'
 import axios from 'axios'
 import store from 'src/_store'{{#if_in_or options "i18n" "sentry" "growingio"}}
@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') growingio.install()
 const sentry = new Sentry(Config.sentry)
 if (process.env.NODE_ENV === 'production') sentry.install(Vue)
 
-sentry.context(() => {
+sentry.context((): void => {
   new Vue({
     router,
     store,{{#if_in options "i18n"}}
@@ -44,6 +44,6 @@ new Vue({
   router,
   store,{{#if_in options "i18n"}}
   i18n: i18n.i18n,{{/if_in}}
-  render: h => h(App)
+  render: (h): VNode => h(App)
 }).$mount('#app')
 {{/if_in}}
