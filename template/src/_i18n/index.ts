@@ -22,8 +22,6 @@ class I18n {
     this.i18n = this.getI18nInstance()
     this.body = document.querySelector('body')
 
-    this.bindI18nMethods()
-
     // 加载默认语言包
     this.loadLanguageAsync('default', locale)
 
@@ -111,17 +109,19 @@ class I18n {
   /**
    * Vue 实例属性 $i18n， 绑定语言处理相关方法
    * $i18n.changeLocale / $i18n.resetLocale
+   * @param {VueRouter} router VueRouter 实例
    */
-  bindI18nMethods() {
+  bindI18nMethods(router: VueRouter) {
     const { locale } = this
     const setI18nLanguage = this.setI18nLanguage.bind(this)
 
     /**
      * Vue 实例修改语言
-     * @param {String} bnstype 指定路由业务类型
      * @param {String} locale 指定语言
      */
-    VueI18n.prototype.changeLocale = function (bnstype: string, lce: string) {
+    VueI18n.prototype.changeLocale = function (lce: string) {
+      const bnstype: string = router.currentRoute.meta.bnstype
+
       setI18nLanguage(bnstype, lce)
 
       // 存储本地
@@ -210,6 +210,7 @@ class I18n {
   }
 
   install({ router, axios }: { router: VueRouter, axios: AxiosStatic }) {
+    this.bindI18nMethods(router)
     this.bindLangQuery(router)
     this.bindRequestHeader(axios)
   }

@@ -104,17 +104,19 @@ class I18n {
   /**
    * Vue 实例属性 $i18n， 绑定语言处理相关方法
    * $i18n.changeLocale / $i18n.resetLocale
+   * @param {VueRouter} router VueRouter 实例
    */
-  bindI18nMethods() {
+  bindI18nMethods(router) {
     const { locale } = this
     const setI18nLanguage = this.setI18nLanguage.bind(this)
 
     /**
      * Vue 实例修改语言
-     * @param {String} bnstype 指定路由业务类型
      * @param {String} locale 指定语言
      */
-    VueI18n.prototype.changeLocale = function (bnstype, lce) {
+    VueI18n.prototype.changeLocale = function (lce) {
+      const bnstype = router.currentRoute.meta.bnstype
+
       setI18nLanguage(bnstype, lce)
 
       // 存储本地
