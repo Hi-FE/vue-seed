@@ -17,7 +17,7 @@ const sentry = {
 {{#if_in options "i18n"}}
 const i18n = {
   // 取值与 _i18n 下的 语言包名称保持一致
-  locale: 'zh'
+  locale: 'zh-CN'
 }
 
 {{/if_in}}
