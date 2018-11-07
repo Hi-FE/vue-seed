@@ -114,7 +114,7 @@ class I18n {
      * Vue 实例修改语言
      * @param {String} locale 指定语言
      */
-    VueI18n.prototype.changeLocale = function (lce) {
+    Vue.prototype.$changeI18nLocale = function (lce) {
       const bnstype = router.currentRoute.meta.bnstype
 
       setI18nLanguage(bnstype, lce)
@@ -128,8 +128,8 @@ class I18n {
     /**
      * Vue 实例重置语言
      */
-    VueI18n.prototype.resetLocale = function () {
-      return this.changeLocale(locale)
+    Vue.prototype.$resetI18nLocale = function () {
+      return this.$changeI18nLocale(locale)
     }
   }
 

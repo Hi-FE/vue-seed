@@ -119,7 +119,7 @@ class I18n {
      * Vue 实例修改语言
      * @param {String} locale 指定语言
      */
-    VueI18n.prototype.changeLocale = function (lce: string) {
+    Vue.prototype.$changeI18nLocale = function (lce: string): Vue {
       const bnstype: string = router.currentRoute.meta.bnstype
 
       setI18nLanguage(bnstype, lce)
@@ -127,14 +127,14 @@ class I18n {
       // 存储本地
       try { localStorage.setItem(STORAGE_KEY, lce) } catch (e) { console.error('[i18n] saveCurrentLanguage error', e) }
 
-      return lce
+      return this
     }
 
     /**
      * Vue 实例重置语言
      */
-    VueI18n.prototype.resetLocale = function () {
-      return this.changeLocale(locale)
+    Vue.prototype.$resetI18nLocale = function (): Vue {
+      return this.$changeI18nLocale(locale)
     }
   }
 
