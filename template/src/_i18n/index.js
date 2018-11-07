@@ -15,8 +15,6 @@ class I18n {
     this.i18n = this.getI18nInstance()
     this.body = document.querySelector('body')
 
-    this.bindI18nMethods()
-
     // 加载默认语言包
     this.loadLanguageAsync('default', locale)
 
@@ -196,6 +194,7 @@ class I18n {
   }
 
   install({ router, axios }) {
+    this.bindI18nMethods(router)
     this.bindLangQuery(router)
     this.bindRequestHeader(axios)
   }
