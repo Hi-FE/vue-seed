@@ -2,27 +2,42 @@
 <html>
   <head>
     <meta charset="utf-8">
-    {{#if_eq env "pc"}}
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="dns-prefetch" href="//unpkg.com">
+    <meta name="author" content="HIFE">
+    <meta name="copyright" content="">
+
+    {{#if_eq env "pc"}}
     <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta name="force-rendering" content="webkit">
     <meta name="robots" content="all">
     <meta name="robots" content="index,follow">
+    <meta name="google-site-verification" content="" />
+    <meta name="msvalidate.01" content="" />
+    <meta name="baidu-site-verification" content="" />
+    <meta name="sogou_site_verification" content="" />
+    <meta name="360-site-verification" content="" />
+    <link rel="canonical" href="" />
     {{/if_eq}}
 
     {{#if_eq env "h5"}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no, viewport-fit=contain" name="viewport">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="apple-mobile-web-app-title" content="">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="320">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
     <meta name="x5-fullscreen" content="true">
     <meta name="browsermode" content="application">
     <meta name="x5-page-mode" content="app">
+    <meta name="msapplication-tap-highlight" content="no">
     {{/if_eq}}
 
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/base-min.css">
