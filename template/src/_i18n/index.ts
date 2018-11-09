@@ -14,13 +14,18 @@ class I18n {
   locale: string
   loadedLanguages: Array<string>
   i18n: VueI18n
-  body: HTMLBodyElement | null
+  body: HTMLElement | null
+  html: HTMLElement | null
 
   constructor({ locale } : { locale: string }) {
     this.locale = locale
     this.loadedLanguages = []
     this.i18n = this.getI18nInstance()
-    this.body = document.querySelector('body')
+    this.body = document.body
+    this.html = document.documentElement
+
+    // 更新 html lang 属性
+    this.setHTMLLangSign(this.i18n.locale)
 
     // 加载默认语言包
     this.loadLanguageAsync('default', locale)
@@ -67,18 +72,32 @@ class I18n {
    * @param {String} lang 指定语言
    */
   setI18nLanguage(bnstype: string, lang: string) {
-    const { body, i18n } = this
+    const { i18n } = this
 
     i18n.locale = lang
 
-    // 更新 body 节点 lang 属性
-    if (body) body.setAttribute('lang', lang)
+    // 更新 html 节点 lang 属性
+    this.setHTMLLangSign(lang)
 
     // 加载语言包
     this.loadLanguageAsync('default', lang)
     this.loadLanguageAsync(bnstype, lang)
 
     return lang
+  }
+
+  /**
+   * 设置 html lang 标志
+   * @param {*} lang 语言
+   */
+  setHTMLLangSign(lang: string) {
+    const { html, body } = this
+
+    if (html) return html.setAttribute('lang', lang)
+
+    if (body) return body.setAttribute('lang', lang)
+
+    return this
   }
 
   /**

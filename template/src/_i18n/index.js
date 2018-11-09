@@ -13,7 +13,11 @@ class I18n {
     this.locale = locale
     this.loadedLanguages = []
     this.i18n = this.getI18nInstance()
-    this.body = document.querySelector('body')
+    this.body = document.body
+    this.html = document.documentElement
+
+    // 更新 html lang 属性
+    this.setHTMLLangSign(this.i18n.locale)
 
     // 加载默认语言包
     this.loadLanguageAsync('default', locale)
@@ -60,18 +64,32 @@ class I18n {
    * @param {String} lang 指定语言
    */
   setI18nLanguage(bnstype, lang) {
-    const { body, i18n } = this
+    const { i18n } = this
 
     i18n.locale = lang
 
-    // 更新 body 节点 lang 属性
-    if (body) body.setAttribute('lang', lang)
+    // 更新 html 节点 lang 属性
+    this.setHTMLLangSign(lang)
 
     // 加载语言包
     this.loadLanguageAsync('default', lang)
     this.loadLanguageAsync(bnstype, lang)
 
     return lang
+  }
+
+  /**
+   * 设置 html lang 标志
+   * @param {*} lang 语言
+   */
+  setHTMLLangSign(lang) {
+    const { html, body } = this
+
+    if (html) return html.setAttribute('lang', lang)
+
+    if (body) return body.setAttribute('lang', lang)
+
+    return this
   }
 
   /**
